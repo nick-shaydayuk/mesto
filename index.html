@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="портфолио mojo на Яндекс.Практикуме" />
+    <meta
+      name="keywords"
+      content="html, css, js, javascript, adaptive, website"
+    />
+    <meta name="author" content="Nick" />
+    <link rel="stylesheet" href="./pages/style.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img src="./images/logo.svg" alt="mesto" class="header__logo" />
+    </header>
+    <main class="main">
+      <section class="popup">
+        <div class="popup__container">
+          <button class="popup__closeButton"></button>
+          <form class="popup__form" name="popup__form" novalidate>
+            <h3 class="popup__heading">Редактировать профиль</h3>
+            <input
+              type="text"
+              class="popup__input"
+              id="name"
+              value="name"
+              minlength="2"
+              maxlength="40"
+              pattern="^[a-zA-Zа-яА-я-\s]+$"
+              required
+            />
+            <input
+              type="text"
+              class="popup__input"
+              id="text"
+              value="Job"
+              minlength="3"
+              maxlength="50"
+              pattern="^[a-zA-Zа-яА-я-\s]+$"
+              required
+            />
+            <button class="popup__submitButton">Сохранить</button>
+          </form>
+        </div>
+      </section>
+      <section class="profile">
+        <img
+          src="./images/profile__avatar.png"
+          alt="avatar"
+          class="profile__avatar"
+        />
+        <div class="profile__info">
+          <div class="profile__name_container">
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <button class="profile__edit-button"></button>
+          </div>
+          <p class="profile__text">Исследователь океана</p>
+        </div>
+        <button class="profile__addButton">+</button>
+      </section>
+      <section class="cards">
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевск</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевск</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевск</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевск</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевск</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img
+            src="./images/karachaevsk.png"
+            alt="karachaevsk"
+            class="card__img"
+          />
+          <div class="card__footer">
+            <p class="card__text">Карачаевскrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
+            <button class="card__likeButton"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+    <script src="./script.js"></script>
+  </body>
+</html>

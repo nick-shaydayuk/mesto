@@ -1,0 +1,26 @@
+.profile__addButton {
+  padding: 0;
+  margin-top: 34px;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid #FFF;
+  border-radius: 2px;
+  font-size: 40px;
+  font-weight: 100;
+  line-height: 1;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__addButton {
+    width: 150px;
+    margin: 0;
+  }
+}

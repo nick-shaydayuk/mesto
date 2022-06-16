@@ -1,0 +1,23 @@
+.popup__submitButton {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: #000;
+  cursor: pointer;
+  width: 100%;
+  height: 46px;
+  border-radius: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__submitButton {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
