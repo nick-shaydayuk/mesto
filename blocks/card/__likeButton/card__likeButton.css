@@ -14,7 +14,3 @@
 .card__likeButton:hover {
   opacity: 0.7;
 }
-
-.card__likeButton:checked {
-  background-color: #000;
-}
