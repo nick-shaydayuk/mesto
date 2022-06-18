@@ -5,6 +5,9 @@
   line-height: 17px;
   text-align: center;
   margin: 6px 0 0 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 1280px) {
