@@ -1,4 +1,4 @@
-.popup__submitButton {
+.popup__submit-button {
   padding: 0;
   border: none;
   font: inherit;
@@ -13,10 +13,14 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
+  transition: opacity 0.3s linear;
+}
+.popup__submit-button:hover {
+  opacity: 0.5;
 }
 
 @media screen and (min-width: 1280px) {
-  .popup__submitButton {
+  .popup__submit-button {
     font-size: 18px;
     line-height: 22px;
   }

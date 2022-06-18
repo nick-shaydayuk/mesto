@@ -9,6 +9,7 @@
   color: #545454;
   padding-left: 17px;
   box-sizing: border-box;
+  margin: 14px 0;
 }
 
 @media screen and (min-width: 1280px) {
@@ -16,5 +17,6 @@
     font-size: 18px;
     line-height: 22px;
     max-width: 880px;
+    margin: 18px 0;
   }
 }

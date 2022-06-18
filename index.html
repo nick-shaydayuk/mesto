@@ -7,7 +7,7 @@
     <meta name="description" content="портфолио mojo на Яндекс.Практикуме" />
     <meta
       name="keywords"
-      content="html, css, js, javascript, adaptive, website"
+      content="html, css, js, javascript, adaptive, we-bsite"
     />
     <meta name="author" content="Nick" />
     <link rel="stylesheet" href="./pages/index.css" />
@@ -20,11 +20,12 @@
     <main class="main">
       <section class="popup">
         <div class="popup__container">
-          <button class="popup__closeButton"></button>
+          <button class="popup__close-button"></button>
           <form class="popup__form" name="popup__form" novalidate>
             <h3 class="popup__heading">Редактировать профиль</h3>
             <input
               type="text"
+              name="popup__input"
               class="popup__input"
               id="name"
               value="name"
@@ -35,6 +36,7 @@
             />
             <input
               type="text"
+              name="popup__text"
               class="popup__input"
               id="text"
               value="Job"
@@ -43,7 +45,7 @@
               pattern="^[a-zA-Zа-яА-я-\s]+$"
               required
             />
-            <button class="popup__submitButton">Сохранить</button>
+            <button class="popup__submit-button">Сохранить</button>
           </form>
         </div>
       </section>
@@ -55,12 +57,12 @@
         />
         <div class="profile__info">
           <div class="profile__name-container">
-            <p class="profile__name">Жак-Ив Кусто</p>
+            <h2 class="profile__name">Жак-Ив Кусто</h2>
             <button class="profile__edit-button"></button>
           </div>
           <p class="profile__text">Исследователь океана</p>
         </div>
-        <button class="profile__addButton">+</button>
+        <button class="profile__add-button">+</button>
       </section>
       <section class="cards">
         <div class="card">
@@ -70,8 +72,8 @@
             class="card__img"
           />
           <div class="card__footer">
-            <p class="card__text">Карачаевск</p>
-            <button class="card__likeButton"></button>
+            <h3 class="card__text">Карачаевск</h3>
+            <button class="card__like-button"></button>
           </div>
         </div>
         <div class="card">
@@ -81,8 +83,8 @@
             class="card__img"
           />
           <div class="card__footer">
-            <p class="card__text">Карачаевск</p>
-            <button class="card__likeButton"></button>
+            <h3 class="card__text">Карачаевск</h3>
+            <button class="card__like-button"></button>
           </div>
         </div>
         <div class="card">
@@ -92,8 +94,8 @@
             class="card__img"
           />
           <div class="card__footer">
-            <p class="card__text">Карачаевск</p>
-            <button class="card__likeButton"></button>
+            <h3 class="card__text">Карачаевск</h3>
+            <button class="card__like-button"></button>
           </div>
         </div>
         <div class="card">
@@ -103,8 +105,8 @@
             class="card__img"
           />
           <div class="card__footer">
-            <p class="card__text">Карачаевск</p>
-            <button class="card__likeButton"></button>
+            <h3 class="card__text">Карачаевск</h3>
+            <button class="card__like-button"></button>
           </div>
         </div>
         <div class="card">
@@ -114,8 +116,8 @@
             class="card__img"
           />
           <div class="card__footer">
-            <p class="card__text">Карачаевск</p>
-            <button class="card__likeButton"></button>
+            <h3 class="card__text">Карачаевск</h3>
+            <button class="card__like-button"></button>
           </div>
         </div>
         <div class="card">
@@ -126,7 +128,7 @@
           />
           <div class="card__footer">
             <p class="card__text">Карачаевскrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
-            <button class="card__likeButton"></button>
+            <button class="card__like-button"></button>
           </div>
         </div>
       </section>

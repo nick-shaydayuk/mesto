@@ -1,5 +1,4 @@
 .card__text {
-  display: inline-block;
   max-width: 200px;
   width: 100%;
   padding: 1px 0 0 19px;
@@ -11,4 +10,5 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  margin: 24px 0;
 }
