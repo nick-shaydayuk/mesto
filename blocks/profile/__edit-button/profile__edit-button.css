@@ -2,13 +2,14 @@
   width: 18px;
   height: 18px;
   margin: 13px 0 0 12px;
-  padding: 0;
+  padding: 0 24px 0 0;
   border: none;
   font: inherit;
   color: inherit;
   background-color: transparent;
   cursor: pointer;
   background-image: url(../../../images/profile__edit-button.svg);
+  background-repeat: no-repeat;
   transition: opacity 0.3s linear;
 }
 
