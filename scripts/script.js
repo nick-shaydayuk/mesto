@@ -37,10 +37,10 @@ function popupClose() {
   popup.classList.toggle("popup_active");
 }
 
-function activeLike() {
+/* function activeLike() {
   like.classList.toggle("card__likeButton_active");
-}
+} */
 editButton.addEventListener("click", popupOpen);
 closeButton.addEventListener("click", popupClose);
 popupForm.addEventListener("submit", editName);
-like.addEventListener("click", activeLike);
+/* like.addEventListener("click", activeLike); */
