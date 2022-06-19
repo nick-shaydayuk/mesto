@@ -16,7 +16,7 @@
   transition: opacity 0.3s linear;
 }
 .popup__submit-button:hover {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 1280px) {
