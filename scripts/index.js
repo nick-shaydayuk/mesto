@@ -2,9 +2,6 @@ popupFormAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const cardImg = document.getElementById("place-link").value;
   const cardText = document.getElementById("place-name").value;
-  debugger
-
-  
   renderCard(addCard(cardImg, cardText))
   popupFormAdd.reset();
   popupClose(popupAddPost);
@@ -75,20 +72,16 @@ for (let i = 0; i < initialCards.length; i++) {
 
 const openPopup = function (popup) {
   popup.classList.add("popup_active");
-  popup.classList.add("popup_active");
 };
 const popupClose = function (popup) {
-  popup.classList.add("popup_close");
-  setTimeout(() => popup.classList.remove("popup_active"), 300); // у кого спрашивал, говорят, что из-за невозможности применения visibility отложенно, нужно применять к попапу отдельный класс и у него прописать эффект ухода в прозрачность, а затем удалить всё, что хоть как-то показывает попап, не могу представить(понять), как именно можно отобразить уход в прозрачность без применения этого кода в функции закрытия
-  setTimeout(() => popup.classList.remove("popup_close"), 300);
+  popup.classList.remove("popup_active");
 };
 
 profileEditButton.addEventListener("click", function () {
-  if (popup.classList.contains("popup-profile") === true) {
     insertName(profileName.textContent);
     insertText(profileText.textContent);
     openPopup(popupProfile);
-  }
+  
 });
 buttonClose.addEventListener("click", function () {
   popupClose(popupProfile);
