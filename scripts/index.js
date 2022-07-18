@@ -2,9 +2,10 @@ popupFormAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const cardImg = document.getElementById("place-link").value;
   const cardText = document.getElementById("place-name").value;
-  renderCard(addCard(cardImg, cardText))
+  renderCard(addCard(cardImg, cardText));
   popupFormAdd.reset();
   popupClose(popupAddPost);
+  setSubmitButtonState(false, popupAddSubmitButton);
 });
 
 function openCard(e) {
@@ -40,6 +41,16 @@ function addCard(cardImg, cardText) {
   return card;
 }
 
+function setSubmitButtonState(isFormValid, submitButton) {
+  if (isFormValid) {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove("popup__submit-button_disabled");
+  } else {
+    submitButton.setAttribute("disabled", true);
+    submitButton.classList.add("popup__submit-button_disabled");
+  }
+}
+
 function renderCard(card) {
   cardsContainer.prepend(card);
 }
@@ -48,45 +59,32 @@ cardClose.addEventListener("click", function () {
   popupClose(popupCard);
 });
 
-function insertName(profileName) {
-  inputProfileName.value = profileName;
-}
-function insertText(profileText) {
-  inputProfileText.value = profileText;
-}
-
 function renderEdition() {
   popup.classList.add("popup_active");
 }
 
-function editName(evt) {
-  evt.preventDefault();
-  profileName.textContent = inputProfileName.value;
-  profileText.textContent = inputProfileText.value;
-  popupClose(popupProfile);
-}
-
 for (let i = 0; i < initialCards.length; i++) {
-  renderCard(addCard(initialCards[i].link, initialCards[i].name))
+  renderCard(addCard(initialCards[i].link, initialCards[i].name));
 }
 
 const openPopup = function (popup) {
   popup.classList.add("popup_active");
+  const popupContainer = popup.querySelector(".popup__container");
+  document.addEventListener("keydown", function (e) {
+    if (e.key == "Escape") {
+      popupClose(popup);
+    }
+  });
+  popup.addEventListener("click", function (e) {
+    if (e.target !== popupContainer && e.target === popup) {
+      popupClose(popup);
+      popup.removeEventListener("click");
+    }
+  });
 };
 const popupClose = function (popup) {
   popup.classList.remove("popup_active");
 };
-
-profileEditButton.addEventListener("click", function () {
-    insertName(profileName.textContent);
-    insertText(profileText.textContent);
-    openPopup(popupProfile);
-  
-});
-buttonClose.addEventListener("click", function () {
-  popupClose(popupProfile);
-});
-popupFormProfile.addEventListener("submit", editName);
 
 popupAddPostOpenBtn.addEventListener("click", function () {
   openPopup(popupAddPost);
@@ -95,3 +93,24 @@ popupAddPostOpenBtn.addEventListener("click", function () {
 popupAddPostClose.addEventListener("click", function () {
   popupClose(popupAddPost);
 });
+
+popupFormAdd.addEventListener("input", function (e) {
+  const isValid = newPlaceName.value.length > 0 && newPlaceUrl.value.length > 0;
+  setSubmitButtonState(isValid, popupAddSubmitButton);
+});
+////////////////////////////////
+function showError(input) {
+  input.classList.add("popup__input_error");
+}
+
+function hideError(input) {
+  input.classList.remove("popup__input_error");
+}
+
+function checkInputValidity(formInput) {
+  if (!formInput.validity.valid) {
+    showError(formInput);
+  } else {
+    hideError(formInput);
+  }
+}

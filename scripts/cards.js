@@ -23,4 +23,8 @@ const initialCards = [
       name: "Байкал",
       link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
     },
+    {
+      name: "Зеленогорск",
+      link: "https://i.ytimg.com/vi/fiQs47D1MEU/maxresdefault.jpg"
+    }
   ];
