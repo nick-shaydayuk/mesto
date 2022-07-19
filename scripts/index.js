@@ -5,8 +5,8 @@ popupFormAdd.addEventListener("submit", (e) => {
   renderCard(addCard(cardImg, cardText));
   popupFormAdd.reset();
   popupClose(popupAddPost);
-  setSubmitButtonState(false, popupAddSubmitButton);
-});
+/*   setSubmitButtonState(false, popupAddSubmitButton);
+ */});
 
 function openCard(e) {
   const cardImg = e.target.src;
@@ -41,16 +41,6 @@ function addCard(cardImg, cardText) {
   return card;
 }
 
-function setSubmitButtonState(isFormValid, submitButton) {
-  if (isFormValid) {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("popup__submit-button_disabled");
-  } else {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("popup__submit-button_disabled");
-  }
-}
-
 function renderCard(card) {
   cardsContainer.prepend(card);
 }
@@ -73,15 +63,19 @@ const openPopup = function (popup) {
   document.addEventListener("keydown", function (e) {
     if (e.key == "Escape") {
       popupClose(popup);
+      popup.removeEventListener("keydown", popupClose)
     }
   });
   popup.addEventListener("click", function (e) {
     if (e.target !== popupContainer && e.target === popup) {
       popupClose(popup);
-      popup.removeEventListener("click");
+      popup.removeEventListener("click", popupClose);
     }
   });
 };
+
+
+
 const popupClose = function (popup) {
   popup.classList.remove("popup_active");
 };
@@ -94,23 +88,6 @@ popupAddPostClose.addEventListener("click", function () {
   popupClose(popupAddPost);
 });
 
-popupFormAdd.addEventListener("input", function (e) {
-  const isValid = newPlaceName.value.length > 0 && newPlaceUrl.value.length > 0;
-  setSubmitButtonState(isValid, popupAddSubmitButton);
-});
-////////////////////////////////
-function showError(input) {
-  input.classList.add("popup__input_error");
-}
 
-function hideError(input) {
-  input.classList.remove("popup__input_error");
-}
 
-function checkInputValidity(formInput) {
-  if (!formInput.validity.valid) {
-    showError(formInput);
-  } else {
-    hideError(formInput);
-  }
-}
+

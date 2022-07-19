@@ -23,8 +23,6 @@ buttonClose.addEventListener("click", function () {
   popupClose(popupProfile);
 });
 
-popupFormProfile.addEventListener("submit", editName);
-popupFormProfile.addEventListener("input", function (e) {
-    const isValid = inputProfileName.value.length > 0 && inputProfileText.value.length > 0;
-    setSubmitButtonState(isValid, popupProfileSubmitButton)
+popupProfileSubmitButton.addEventListener('click', function (evt) {
+  editName(evt)
 })

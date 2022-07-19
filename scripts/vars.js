@@ -17,9 +17,11 @@ const card = document.querySelector(".card");
 const cardsContainer = document.querySelector(".cards");
 
 const popupFormAdd = document.forms.popup__form_add  
+
 const newPlaceName = popupFormAdd.elements.placename 
 const newPlaceUrl = popupFormAdd.elements.placeurl
 const popupAddSubmitButton = document.querySelector('.popup-add-post__submit-button')
+const formAddError = popupFormAdd.querySelector(`.${newPlaceUrl.id}-error`)
 
 const popupFormProfile = document.forms.profile
 const inputProfileName = popupFormProfile.elements.profileName;
