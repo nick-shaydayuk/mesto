@@ -4,15 +4,16 @@ popupFormAdd.addEventListener("submit", (e) => {
   const cardText = document.getElementById("place-name").value;
   renderCard(addCard(cardImg, cardText));
   popupFormAdd.reset();
-  popupClose(popupAddPost);
-/*   setSubmitButtonState(false, popupAddSubmitButton);
- */});
+  popupAddSubmitButton.setAttribute("disabled", true);
+  popupAddSubmitButton.classList.add("popup__submit-button_disabled")
+  closePopup(popupAddPost);
+});
 
 function openCard(e) {
   const cardImg = e.target.src;
   popupCardImg.src = cardImg;
   const cardText = e.target.parentNode.querySelector(".card__text").textContent;
-  document.querySelector(".popup-card__img").alt = cardText;
+  popupCardImg.alt = cardText;
   popupCardText.textContent = cardText;
   openPopup(popupCard);
 }
@@ -20,16 +21,14 @@ function openCard(e) {
 function addCard(cardImg, cardText) {
   const cardTemplate = document.querySelector("#card-template").content;
   const card = cardTemplate.cloneNode(true);
-
   card.querySelector(".card__text").textContent = cardText;
-  card.querySelector(".card__img").src = cardImg;
-
-  card.querySelector(".card__img").alt = cardText;
-
-  card.querySelector(".card__img").addEventListener("click", openCard);
+  const cardElement = card.querySelector(".card__img")
+  cardElement.src = cardImg;
+  cardElement.alt = cardText;
+  cardElement.addEventListener("click", openCard);
   card
     .querySelector(".card__close-button")
-    .addEventListener("click", function (e) {
+    .addEventListener("click", function (e) { // в прошлом спринте выносил обработчик на весь контейнер. сказали переделывать :)))
       const cardItem = e.target.closest(".card");
       cardItem.remove();
     });
@@ -46,12 +45,8 @@ function renderCard(card) {
 }
 
 cardClose.addEventListener("click", function () {
-  popupClose(popupCard);
+  closePopup(popupCard);
 });
-
-function renderEdition() {
-  popup.classList.add("popup_active");
-}
 
 for (let i = 0; i < initialCards.length; i++) {
   renderCard(addCard(initialCards[i].link, initialCards[i].name));
@@ -59,24 +54,27 @@ for (let i = 0; i < initialCards.length; i++) {
 
 const openPopup = function (popup) {
   popup.classList.add("popup_active");
-  const popupContainer = popup.querySelector(".popup__container");
-  document.addEventListener("keydown", function (e) {
-    if (e.key == "Escape") {
-      popupClose(popup);
-      popup.removeEventListener("keydown", popupClose)
-    }
-  });
-  popup.addEventListener("click", function (e) {
-    if (e.target !== popupContainer && e.target === popup) {
-      popupClose(popup);
-      popup.removeEventListener("click", popupClose);
-    }
-  });
+  document.addEventListener("keydown", closeByEsc);
+  popup.addEventListener("click", closeByOverlay);
 };
 
+function closeByEsc(evt) {
+  if (evt.key === ESC_CODE) {
+    const openedPopup = document.querySelector('.popup_active');
+    closePopup(openedPopup); 
+  }
+} 
 
+function closeByOverlay(e) {
+  const openedPopup = document.querySelector('.popup_active');
+  const popupContainer = openedPopup.querySelector(".popup__container");
+  if (e.target !== popupContainer && e.target === openedPopup) {
+    closePopup(openedPopup);
+    openedPopup.removeEventListener("click", closePopup);
+  }
+}
 
-const popupClose = function (popup) {
+const closePopup = function (popup) {
   popup.classList.remove("popup_active");
 };
 
@@ -85,7 +83,7 @@ popupAddPostOpenBtn.addEventListener("click", function () {
 });
 
 popupAddPostClose.addEventListener("click", function () {
-  popupClose(popupAddPost);
+  closePopup(popupAddPost);
 });
 
 

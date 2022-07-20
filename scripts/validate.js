@@ -4,62 +4,69 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, inputErrorClass, errorClass) {
   console.log(errorMessage);
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("popup__input_error");
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_active");
+  errorElement.classList.add(errorClass);
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_error");
-  errorElement.classList.remove("popup__input_error_active");
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = "";
 }
 
-function checkInputValidity(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+function checkInputValidity(evt, formElement, inputElement, inputErrorClass, errorClass) {
+  if (!evt.target.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, errorClass);
   }
 }
 
-const toggleButtonState = (inputList, submitButton) => {
+const toggleButtonState = (inputList, submitButton, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
-    
-    submitButton.classList.add("popup__submit-button_disabled");
+    submitButton.classList.add(inactiveButtonClass);
     submitButton.setAttribute("disabled", "")
   } else {
-    submitButton.classList.remove("popup__submit-button_disabled");
+    submitButton.classList.remove(inactiveButtonClass);
     submitButton.removeAttribute("disabled", "")
   }
 };
 
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const submitButton = formElement.querySelector(".popup__submit-button")
-  toggleButtonState(inputList, submitButton);
+function setEventListeners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const submitButton = formElement.querySelector(submitButtonSelector)
+  toggleButtonState(inputList, submitButton, inactiveButtonClass);
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, submitButton);
+    inputElement.addEventListener("input", (evt) => {
+      checkInputValidity(evt, formElement, inputElement, inputErrorClass, errorClass);
+      toggleButtonState(inputList, submitButton, inactiveButtonClass);
     });
   });
 }
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll(".popup__form"));
+function enableValidation(options) {
+  const formList = Array.from(document.querySelectorAll(options.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener("submit", (e) => {
       e.preventDefault();
     });
-    setEventListeners(formElement);
+    setEventListeners(formElement, options.inputSelector, options.submitButtonSelector,
+      options.inactiveButtonClass, options.inputErrorClass, options.errorClass);
   });
 }
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form', //форма
+  inputSelector: '.popup__input', //input формы
+  submitButtonSelector: '.popup__submit-button', //кнопка формы
+  inactiveButtonClass: 'popup__submit-button_disabled', //кнопка неактивна
+  inputErrorClass: 'popup__input_error', //стиль input при ошибке
+  errorClass: 'form__input-error_active' //отображение ошибки
+});
 
 

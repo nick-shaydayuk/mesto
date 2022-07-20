@@ -1,6 +1,6 @@
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
-const buttonClose = document.querySelector(".popup__close-button");
+const popupProfileButtonClose = document.querySelector(".popup__close-button");
 const popupAddPostClose = document.querySelector(".popup-add-post__close-button");
 const profileEditButton = document.querySelector(".profile__edit-button");
 
@@ -29,6 +29,8 @@ const inputProfileText = popupFormProfile.elements.profileText;
 const popupProfileSubmitButton = document.querySelector('.popup-profile__submit-button')
 const profileName = document.querySelector('.profile__name');
 const profileText = document.querySelector('.profile__text');
+
+const ESC_CODE = "Escape"
 
 
 

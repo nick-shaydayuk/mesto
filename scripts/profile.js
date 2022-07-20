@@ -10,7 +10,7 @@ function editName(evt) {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileText.textContent = inputProfileText.value;
-  popupClose(popupProfile);
+  closePopup(popupProfile);
 }
 
 profileEditButton.addEventListener("click", function () {
@@ -19,8 +19,8 @@ profileEditButton.addEventListener("click", function () {
   openPopup(popupProfile);
 });
 
-buttonClose.addEventListener("click", function () {
-  popupClose(popupProfile);
+popupProfileButtonClose.addEventListener("click", function () {
+  closePopup(popupProfile);
 });
 
 popupProfileSubmitButton.addEventListener('click', function (evt) {

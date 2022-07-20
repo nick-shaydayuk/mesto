@@ -23,10 +23,10 @@
         <form class="popup__form" name="profile" novalidate>
           <h3 class="popup__heading">Редактировать профиль</h3>
           <input type="text" placeholder="Имя" name="profileName" class="popup__input" id="name" value="name" minlength="2"
-            maxlength="40" pattern="^[a-zA-Zа-яА-я-\s]+$" required />
+            maxlength="40" required />
           <span class="popup__form-error name-error"></span>
           <input type="text" placeholder="Работа" name="profileText" class="popup__input" id="text" value="Job" minlength="2" maxlength="200"
-            pattern="^[a-zA-Zа-яА-я-\s]+$" required />
+             required />
             <span class="popup__form-error text-error"></span>
           <button class="popup__submit-button popup-profile__submit-button" type="submit">Сохранить</button>
         </form>
@@ -66,7 +66,6 @@
       <button class="profile__add-button" type="button">+</button>
     </section>
     <section class="cards" id="cards">
-
     </section>
   </main>
   <footer class="footer">
