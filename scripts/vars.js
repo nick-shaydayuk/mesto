@@ -1,13 +1,13 @@
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
-const popupProfileButtonClose = document.querySelector(".popup__close-button");
+const popupProfileButtonClose = document.querySelector(".popup-profile__close-button");
 const popupAddPostClose = document.querySelector(".popup-add-post__close-button");
 const profileEditButton = document.querySelector(".profile__edit-button");
 
 const popupCard = document.querySelector(".popup-card");
 const popupCardImg = popupCard.querySelector(".popup-card__img");
 const popupCardText = popupCard.querySelector(".popup-card__text");
-const cardClose = popupCard.querySelector(".popup__close-button");
+const cardClose = popupCard.querySelector(".popup-card__close-button");
 
 const popupAddPost = document.querySelector(".popup-add-post");
 const popupAddPostOpenBtn = document.querySelector(".profile__add-button");

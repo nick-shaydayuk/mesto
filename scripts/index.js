@@ -2,7 +2,7 @@ popupFormAdd.addEventListener("submit", (e) => {
   e.preventDefault();
   const cardImg = document.getElementById("place-link").value;
   const cardText = document.getElementById("place-name").value;
-  renderCard(addCard(cardImg, cardText));
+  addCard(createCard(cardImg, cardText));
   popupFormAdd.reset();
   popupAddSubmitButton.setAttribute("disabled", true);
   popupAddSubmitButton.classList.add("popup__submit-button_disabled")
@@ -18,7 +18,7 @@ function openCard(e) {
   openPopup(popupCard);
 }
 
-function addCard(cardImg, cardText) {
+function createCard(cardImg, cardText) {
   const cardTemplate = document.querySelector("#card-template").content;
   const card = cardTemplate.cloneNode(true);
   card.querySelector(".card__text").textContent = cardText;
@@ -40,7 +40,7 @@ function addCard(cardImg, cardText) {
   return card;
 }
 
-function renderCard(card) {
+function addCard(card) {
   cardsContainer.prepend(card);
 }
 
@@ -49,7 +49,7 @@ cardClose.addEventListener("click", function () {
 });
 
 for (let i = 0; i < initialCards.length; i++) {
-  renderCard(addCard(initialCards[i].link, initialCards[i].name));
+  addCard(createCard(initialCards[i].link, initialCards[i].name));
 }
 
 const openPopup = function (popup) {
@@ -70,12 +70,14 @@ function closeByOverlay(e) {
   const popupContainer = openedPopup.querySelector(".popup__container");
   if (e.target !== popupContainer && e.target === openedPopup) {
     closePopup(openedPopup);
-    openedPopup.removeEventListener("click", closePopup);
+    
   }
 }
 
 const closePopup = function (popup) {
   popup.classList.remove("popup_active");
+  popup.removeEventListener("click", closePopup);
+  document.removeEventListener("keydown", closeByEsc);
 };
 
 popupAddPostOpenBtn.addEventListener("click", function () {
