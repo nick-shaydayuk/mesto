@@ -1,7 +1,7 @@
 import { initialCards } from "./cards.js";
 import Card from "./Card.js";
-/* import FormValidator from "./validate.js";
- */
+import FormValidator from "./validate.js";
+
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
 const popupProfileButtonClose = document.querySelector(
@@ -43,6 +43,21 @@ const profileName = document.querySelector(".profile__name");
 const profileText = document.querySelector(".profile__text");
 
 const ESC_CODE = "Escape";
+
+const formConfig = {
+  formSelector: '.popup__form', //форма
+  inputSelector: '.popup__input', //input формы
+  submitButtonSelector: '.popup__submit-button', //кнопка формы
+  inactiveButtonClass: 'popup__submit-button_disabled', //кнопка неактивна
+  inputErrorClass: 'popup__input_error', //стиль input при ошибке
+  errorClass: 'form__input-error_active'
+}
+
+const cardFormValidator = new FormValidator(formConfig, popupFormAdd)
+cardFormValidator.enableValidation()
+
+const profileEditValidator = new FormValidator(formConfig, popupFormProfile)
+profileEditValidator.enableValidation()
 
 function createCard(data) {
   const card = new Card(data, '#card-template', openCard)
@@ -147,3 +162,5 @@ popupProfileButtonClose.addEventListener("click", function () {
 popupProfileSubmitButton.addEventListener("click", function (evt) {
   editName(evt);
 });
+
+
