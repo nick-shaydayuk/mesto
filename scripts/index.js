@@ -1,7 +1,7 @@
 import { initialCards } from "./cards.js";
-import Card from "./Card";
-import FormValidator from "./validate";
-
+import Card from "./Card.js";
+/* import FormValidator from "./validate.js";
+ */
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
 const popupProfileButtonClose = document.querySelector(
@@ -58,43 +58,19 @@ popupFormAdd.addEventListener("submit", (e) => {
     link: cardImg,
   };
 
-  addCard();
+  addCard(createCard(data));
   popupFormAdd.reset();
   popupAddSubmitButton.setAttribute("disabled", true);
   popupAddSubmitButton.classList.add("popup__submit-button_disabled");
   closePopup(popupAddPost);
 });
 
-function openCard(e) {
-  const cardImg = e.target.src;
-  popupCardImg.src = cardImg;
-  const cardText = e.target.parentNode.querySelector(".card__text").textContent;
-  popupCardImg.alt = cardText;
-  popupCardText.textContent = cardText;
+function openCard(name, link) {
+  popupCardImg.src = link;
+  popupCardImg.alt = name;
+  popupCardText.textContent = name;
   openPopup(popupCard);
 }
-
-/* function createCard(cardImg, cardText) {
-  const cardTemplate = document.querySelector("#card-template").content;
-  const card = cardTemplate.cloneNode(true);
-  card.querySelector(".card__text").textContent = cardText;
-  const cardElement = card.querySelector(".card__img")
-  cardElement.src = cardImg;
-  cardElement.alt = cardText;
-  cardElement.addEventListener("click", openCard);
-  card
-    .querySelector(".card__close-button")
-    .addEventListener("click", function (e) { // в прошлом спринте выносил обработчик на весь контейнер. сказали переделывать :)))
-      const cardItem = e.target.closest(".card");
-      cardItem.remove();
-    });
-  card
-    .querySelector(".card__like-button")
-    .addEventListener("click", function (e) {
-      e.target.classList.toggle("card__like-button_active");
-    });
-  return card;
-} */
 
 function addCard(card) {
   cardsContainer.prepend(card);
