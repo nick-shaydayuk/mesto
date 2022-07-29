@@ -1,6 +1,6 @@
 import { initialCards } from "./cards.js";
 import Card from "./Card.js";
-import FormValidator from "./validate.js";
+import FormValidator from "./FormValidator.js";
 
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
@@ -23,6 +23,8 @@ const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
 const cardTemplate = document.querySelector("#card-template").content;
 const card = document.querySelector(".card");
 const cardsContainer = document.querySelector(".cards");
+const cardImg = document.querySelector("#place-link").value;
+const cardText = document.querySelector("#place-name").value;
 
 const popupFormAdd = document.forms.popup__form_add;
 
@@ -66,8 +68,6 @@ function createCard(data) {
 
 popupFormAdd.addEventListener("submit", (e) => {
   e.preventDefault();
-  const cardImg = document.getElementById("place-link").value;
-  const cardText = document.getElementById("place-name").value;
   const data = {
     name: cardText,
     link: cardImg,
@@ -75,8 +75,6 @@ popupFormAdd.addEventListener("submit", (e) => {
 
   addCard(createCard(data));
   popupFormAdd.reset();
-  popupAddSubmitButton.setAttribute("disabled", true);
-  popupAddSubmitButton.classList.add("popup__submit-button_disabled");
   closePopup(popupAddPost);
 });
 
@@ -115,13 +113,18 @@ function closeByEsc(evt) {
 function closeByOverlay(e) {
   const openedPopup = document.querySelector(".popup_active");
   const popupContainer = openedPopup.querySelector(".popup__container");
-  if (e.target !== popupContainer && e.target === openedPopup) {
+  const popupCardContainer = openedPopup.querySelector(".popup-card__container");
+  const popupCloseButton = openedPopup.querySelector(".popup__close-button");
+  if (e.target === popupCloseButton) {
+    return;
+  } else if ((e.target !== popupContainer || e.target !== popupCardContainer) && e.target === openedPopup && e.target !== popupCloseButton) {
     closePopup(openedPopup);
   }
 }
 
 const closePopup = function (popup) {
   popup.classList.remove("popup_active");
+  popup.removeEventListener("click", closeByOverlay);
   popup.removeEventListener("click", closePopup);
   document.removeEventListener("keydown", closeByEsc);
 };
@@ -159,7 +162,7 @@ popupProfileButtonClose.addEventListener("click", function () {
   closePopup(popupProfile);
 });
 
-popupProfileSubmitButton.addEventListener("click", function (evt) {
+popupFormProfile.addEventListener("submit", function (evt) {
   editName(evt);
 });
 
