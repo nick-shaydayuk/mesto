@@ -23,8 +23,7 @@ const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
 const cardTemplate = document.querySelector("#card-template").content;
 const card = document.querySelector(".card");
 const cardsContainer = document.querySelector(".cards");
-const cardImg = document.querySelector("#place-link").value;
-const cardText = document.querySelector("#place-name").value;
+
 
 const popupFormAdd = document.forms.popup__form_add;
 
@@ -68,6 +67,8 @@ function createCard(data) {
 
 popupFormAdd.addEventListener("submit", (e) => {
   e.preventDefault();
+  let cardImg = document.querySelector("#place-link").value;
+  let cardText = document.querySelector("#place-name").value;
   const data = {
     name: cardText,
     link: cardImg,
@@ -125,12 +126,12 @@ function closeByOverlay(e) {
 const closePopup = function (popup) {
   popup.classList.remove("popup_active");
   popup.removeEventListener("click", closeByOverlay);
-  popup.removeEventListener("click", closePopup);
   document.removeEventListener("keydown", closeByEsc);
 };
 
 popupAddPostOpenBtn.addEventListener("click", function () {
   openPopup(popupAddPost);
+  cardFormValidator.resetFormValidator()
 });
 
 popupAddPostClose.addEventListener("click", function () {
