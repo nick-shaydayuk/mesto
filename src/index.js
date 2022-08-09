@@ -3,6 +3,11 @@ import './index.css'
 import { initialCards } from "./utils/cards.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
+import Popup from './components/Popup';
+import PopupWithForm from './components/PopupWithForm';
+import PopupWithImage from './components/PopupWithImage';
+import Section from './components/Section';
+import UserInfo from './components/UserInfo';
 
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
@@ -24,7 +29,7 @@ const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
 
 const cardTemplate = document.querySelector("#card-template").content;
 const card = document.querySelector(".card");
-const cardsContainer = document.querySelector(".cards");
+const cardsContainer = ".cards";
 
 
 const popupFormAdd = document.forms.popup__form_add;
@@ -88,6 +93,17 @@ function openCard(name, link) {
   openPopup(popupCard);
 }
 
+const cardList = new Section({
+  data: initialCards,
+    renderer: (cardItem) => {
+      prependCard(createCard(cardItem));
+    }
+  },
+  cardsContainer
+)
+
+cardList.renderItems()
+
 function addCard(card) {
   cardsContainer.prepend(card);
 }
@@ -96,9 +112,9 @@ cardClose.addEventListener("click", function () {
   closePopup(popupCard);
 });
 
-for (let i = 0; i < initialCards.length; i++) {
+/* for (let i = 0; i < initialCards.length; i++) {
   addCard(createCard(initialCards[i]));
-}
+} */
 
 const openPopup = function (popup) {
   popup.classList.add("popup_active");
@@ -168,4 +184,8 @@ popupProfileButtonClose.addEventListener("click", function () {
 popupFormProfile.addEventListener("submit", function (evt) {
   editName(evt);
 });
+
+/* const handleCardClick = (name, link) => {
+  imagePopup.open(name, link);
+}; */
 
