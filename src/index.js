@@ -1,6 +1,8 @@
-import { initialCards } from "./cards.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import './index.css'
+
+import { initialCards } from "./utils/cards.js";
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
 
 const profile = document.querySelector(".profile");
 const popupProfile = document.querySelector(".popup-profile");
@@ -166,5 +168,4 @@ popupProfileButtonClose.addEventListener("click", function () {
 popupFormProfile.addEventListener("submit", function (evt) {
   editName(evt);
 });
-
 
