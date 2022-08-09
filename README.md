@@ -1,5 +1,5 @@
 # Проект: Место
-Использованные технологии: html5, css3, javascript
+Использованные технологии: html5, css3, javascript, node.js, webpack, yarn
 ### Обзор
 
 * Figma
