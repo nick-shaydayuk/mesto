@@ -118,3 +118,5 @@ popupAddPostOpenBtn.addEventListener("click", function () {
   cardFormValidator.resetFormValidator(); 
   popupAddPost.open();
 });
+
+// Евгений, подскажите пожалуйста, каким образом лучше отсортировать код, чтобы не было беспорядка? может есть какие-то стандарты или статьи? голова пока не подсказывает, какой способ лучше, ели тему понимаю :))
