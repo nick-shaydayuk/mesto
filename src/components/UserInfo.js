@@ -1,16 +1,16 @@
 export default class UserInfo {
-  constructor({ name, text }, { inputName, inputText }) {
+  constructor({ name, text }) {
     this._name = name;
     this._text = text;
-    this._inputName = inputName;
-    this._inputText = inputText;
   }
   getUserInfo() {
-    this._inputName.value = this._name.textContent;
-    this._inputText.value = this._text.textContent;
+    return {
+        name: this._name.textContent,
+        text: this._text.textContent
+    }
   }
-  setUserInfo() {
-    this._name.textContent = this._inputName.value;
-    this._text.textContent = this._inputText.value;
+  setUserInfo(values) {
+    this._name.textContent = values[Object.keys(values)[0]];
+    this._text.textContent = values[Object.keys(values)[1]];
   }
 }
