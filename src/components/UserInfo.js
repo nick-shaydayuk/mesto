@@ -10,7 +10,7 @@ export default class UserInfo {
     }
   }
   setUserInfo(values) {
-    this._name.textContent = values[Object.keys(values)[0]];
-    this._text.textContent = values[Object.keys(values)[1]];
+    this._name.textContent = values.name;
+    this._text.textContent = values.text;
   }
 }

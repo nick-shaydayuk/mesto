@@ -3,7 +3,6 @@ import "./index.css";
 import { initialCards } from "../utils/cards.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import Popup from "../components/Popup";
 import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
@@ -11,47 +10,19 @@ import UserInfo from "../components/UserInfo";
 
 const popupProfileSelector = ".popup-profile";
 
-const profile = document.querySelector(".profile");
-const popupProfileButtonClose = document.querySelector(
-  ".popup-profile__close-button"
-);
-const popupAddPostClose = document.querySelector(
-  ".popup-add-post__close-button"
-);
 const profileEditButton = document.querySelector(".profile__edit-button");
-
-const popupCardSelector = ".popup-card";
 
 const popupAddPostSelector = ".popup-add-post";
 const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
 
-const cardTemplate = document.querySelector("#card-template").content;
-const card = document.querySelector(".card");
 const cardsContainer = ".cards";
 
 const popupFormAdd = document.forms.popup__form_add;
 
-const newPlaceName = popupFormAdd.elements.name;
-const newPlaceUrl = popupFormAdd.elements.link;
-const popupAddSubmitButton = document.querySelector(
-  ".popup-add-post__submit-button"
-);
-const formAddError = popupFormAdd.querySelector(`.${newPlaceUrl.id}-error`);
-
 const popupFormProfile = document.forms.profile;
-const inputProfileName = popupFormProfile.elements.profileName;
-const inputProfileText = popupFormProfile.elements.profileText;
-const popupProfileSubmitButton = document.querySelector(
-  ".popup-profile__submit-button"
-);
+
 const profileName = document.querySelector(".profile__name");
 const profileText = document.querySelector(".profile__text");
-
-const userData = new UserInfo({name: profileName, text: profileText});
-
-
-
-const ESC_CODE = "Escape";
 
 const formConfig = {
   formSelector: ".popup__form", //форма
@@ -68,20 +39,7 @@ cardFormValidator.enableValidation();
 const profileEditValidator = new FormValidator(formConfig, popupFormProfile);
 profileEditValidator.enableValidation();
 
-function createCard(data) {
-  const card = new Card(data, "#card-template", openCard);
-  return card.generateCard();
-}
-
-const cardList = new Section(
-  { items: initialCards, renderer: (data) => {
-    cardList.prependCard(createCard(data));
-  } },
-  cardsContainer
-);
-
-cardList.renderItems() 
-
+const userData = new UserInfo({name: profileName, text: profileText});
 
 const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
@@ -90,7 +48,13 @@ const popupProfile = new PopupWithForm({
   },
 }
 );
-popupProfile.setEventListeners();
+
+const cardList = new Section(
+  { items: initialCards, renderer: (data) => {
+    cardList.prependCard(createCard(data));
+  } },
+  cardsContainer
+);
 
 const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
@@ -99,10 +63,14 @@ const popupAddPost = new PopupWithForm({
     popupFormAdd.reset();
   },
 });
-popupAddPost.setEventListeners();
+
 
 const popupCard = new PopupWithImage(".popup-card");
-popupCard.setEventListeners();
+
+function createCard(data) {
+  const card = new Card(data, "#card-template", openCard);
+  return card.generateCard();
+}
 
 function openCard(name, link) {
   popupCard.open(name, link);
@@ -119,4 +87,12 @@ popupAddPostOpenBtn.addEventListener("click", function () {
   popupAddPost.open();
 });
 
-// Евгений, подскажите пожалуйста, каким образом лучше отсортировать код, чтобы не было беспорядка? может есть какие-то стандарты или статьи? голова пока не подсказывает, какой способ лучше, ели тему понимаю :))
+cardList.renderItems() 
+
+popupProfile.setEventListeners();
+
+popupAddPost.setEventListeners();
+
+popupCard.setEventListeners();
+
+// Спасибо, поправил :)
