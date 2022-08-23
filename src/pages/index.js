@@ -7,13 +7,18 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 import UserInfo from "../components/UserInfo";
+import PopupRemover from "../components/PopupRemover";
 
 const popupProfileSelector = ".popup-profile";
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 
+const avatarEditButton = document.querySelector(".profile__avatar-container");
+const popupFormAvatar = document.querySelector(".popup__form-avatar");
+
 const popupAddPostSelector = ".popup-add-post";
 const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
+const popupEditAvatarSelector = ".popup-edit-avatar";
 
 const cardsContainer = ".cards";
 
@@ -23,6 +28,7 @@ const popupFormProfile = document.forms.profile;
 
 const profileName = document.querySelector(".profile__name");
 const profileText = document.querySelector(".profile__text");
+const avatar = document.querySelector(".profile__avatar");
 
 const formConfig = {
   formSelector: ".popup__form", //форма
@@ -39,7 +45,10 @@ cardFormValidator.enableValidation();
 const profileEditValidator = new FormValidator(formConfig, popupFormProfile);
 profileEditValidator.enableValidation();
 
-const userData = new UserInfo({name: profileName, text: profileText});
+const avatarEditValidator = new FormValidator(formConfig, popupFormAvatar);
+avatarEditValidator.enableValidation();
+
+const userData = new UserInfo({name: profileName, text: profileText, avatar: avatar});
 
 const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
@@ -64,16 +73,28 @@ const popupAddPost = new PopupWithForm({
   },
 });
 
+const popupEditAvatar = new PopupWithForm ({
+  popupSelector: popupEditAvatarSelector,
+  submitHandler: (values) => {
+    userData.setAvatar(values);
+  }
+})
 
 const popupCard = new PopupWithImage(".popup-card");
 
+const popupRemover = new PopupRemover({popupSelector: ".popup-remover"})
+
 function createCard(data) {
-  const card = new Card(data, "#card-template", openCard);
+  const card = new Card(data, "#card-template", openCard, openPopupRemove);
   return card.generateCard();
 }
 
 function openCard(name, link) {
   popupCard.open(name, link);
+}
+
+function openPopupRemove(element) {
+  popupRemover.open(element)
 }
 
 profileEditButton.addEventListener("click", function () {
@@ -87,7 +108,15 @@ popupAddPostOpenBtn.addEventListener("click", function () {
   popupAddPost.open();
 });
 
+avatarEditButton.addEventListener("click", function (){
+  popupEditAvatar.setInputValues(userData.getUserInfo());  
+  avatarEditValidator.resetFormValidator();
+  popupEditAvatar.open()
+})
+
 cardList.renderItems() 
+
+popupEditAvatar.setEventListeners();
 
 popupProfile.setEventListeners();
 
@@ -95,4 +124,4 @@ popupAddPost.setEventListeners();
 
 popupCard.setEventListeners();
 
-// Спасибо, поправил :)
+popupRemover.setEventListeners()

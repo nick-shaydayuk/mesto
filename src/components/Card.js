@@ -1,15 +1,17 @@
 export default class Card {
-  constructor({name, link}, templateSelector, handleCardClick) {
+  constructor({ name, link }, templateSelector, handleCardClick, handleCardRemove) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleCardRemove = handleCardRemove;
   }
 
   _getTemplate() {
     return document
       .querySelector(this._templateSelector)
-      .content.querySelector('.card').cloneNode(true);
+      .content.querySelector(".card")
+      .cloneNode(true);
   }
 
   generateCard() {
@@ -28,7 +30,7 @@ export default class Card {
       this._cardLike.classList.toggle("card__like-button_active");
     });
     this._cardClose.addEventListener("click", () => {
-      this._removeCard()
+      this._handleCardRemove(this._element);
     });
     this._cardImg.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
@@ -36,7 +38,6 @@ export default class Card {
   }
 
   _removeCard() {
-    this._element.remove()
+    this._element.remove();
   }
-
 }
