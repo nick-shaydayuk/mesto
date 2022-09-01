@@ -18,7 +18,7 @@ const popupFormAvatar = document.querySelector(".popup__form-avatar");
 
 const popupAddPostSelector = ".popup-add-post";
 const popupAddPostOpenBtn = document.querySelector(".profile__add-button");
-const popupEditAvatarSelector = ".popup-edit-avatar";
+const popupEditAvatarSelector = ".popup-avatar";
 
 const cardsContainer = ".cards";
 
