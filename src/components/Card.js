@@ -38,17 +38,21 @@ export default class Card {
     this._cardClose = this._element.querySelector(".card__close-button");
     this._counter = this._element.querySelector('.card__like-counter');
     this._setEventListeners();
-    /* this.updateLikes(); */
+    this.updateLikes();
     return this._element;
   }
 
   updateLikes() {
-    console.log(this._likes);
-    if(this._likes.length > 0) {
-      this._counter.textContent = this._likes.length;
+    if (!this._likes === undefined) {
+      if(this._likes.length > 0) {
+        this._counter.textContent = this._likes.length;
+      } else {
+        this._counter.textContent = 0;
+      }
     } else {
       this._counter.textContent = 0;
     }
+    
   }
 
   _setEventListeners() {

@@ -88,7 +88,7 @@ const popupProfile = new PopupWithForm({
 
 const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
-  submitHandler: ({data, buttonElement}) => {
+  submitHandler: (data, buttonElement) => {
     buttonElement.textContent = 'Создание...'
     let userId = userData.getUserId();
     cardList.appendCard(
