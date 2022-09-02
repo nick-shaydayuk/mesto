@@ -15,7 +15,7 @@ export default class Api {
     return Promise.reject("Произошла ошибка");
   };
 
-  async getUser() { // в задании вроде не сказано, что я должен строго по примеру запросы писать..
+  async getUser() {
     const res = await fetch(`${this._url}users/me`, {
       headers: this._headers,
     });
