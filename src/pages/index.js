@@ -30,7 +30,7 @@ const profileName = document.querySelector(".profile__name");
 const profileText = document.querySelector(".profile__text");
 const avatar = document.querySelector(".profile__avatar");
 
-const cardLikeCounter = document.querySelector(".card__like-counter");
+let cardLikeCheck
 
 const formConfig = {
   formSelector: ".popup__form", //форма
@@ -88,8 +88,9 @@ const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
   submitHandler: (data) => {
     let userId = userData.getUserId();
-    cardList.appendCard(
-      createCard({
+
+    api
+      .createCard({
         name: data.name,
         link: data.link,
         likes: data.likes,
@@ -97,15 +98,18 @@ const popupAddPost = new PopupWithForm({
         userId: userId,
         ownerId: userId,
       })
-    );
-    api.createCard({
-      name: data.name,
-      link: data.link,
-      likes: data.likes,
-      _id: data._id,
-      userId: userId,
-      ownerId: userId,
-    });
+      .then(() => {
+        cardList.appendCard(
+          createCard({
+            name: data.name,
+            link: data.link,
+            likes: data.likes,
+            _id: data._id,
+            userId: userId,
+            ownerId: userId,
+          })
+        );
+      });
     popupFormAdd.reset();
   },
 });
@@ -123,8 +127,11 @@ const popupCard = new PopupWithImage(".popup-card");
 
 const popupRemover = new PopupRemover({
   popupSelector: ".popup-remover",
-  deleteCardHandler: ({ cardId }) => {
-    api.deleteCard({ id: cardId });
+  deleteCardHandler: ({ cardId, element, popupElement }) => {
+    api.deleteCard({ id: cardId }).then(() => {
+      element.remove();
+      popupElement.close();
+    });
   },
 });
 
@@ -135,20 +142,25 @@ function createCard({ name, link, likes, _id, userId, ownerId }) {
     openCard,
     openPopupRemove,
     handleCardLike,
-    handleCardUnlike,
+    handleCardUnlike
   );
   return card.generateCard();
 }
 
-function handleCardLike({id}) {
-  console.log(id);
-  api.addLike({ id: id })
+function handleCardLike({ id, likeElement, counter, likes, card }) {
+  api.addLike({ id: id }).then(() => {
+    likeElement.classList.add("card__like-button_active");
+    counter.textContent = likes.length;
+    card.updateLikes();
+  });
 }
 
-function handleCardUnlike({id}) {
-  console.log(id);
-  api.removeLike({ id: id })
-  
+function handleCardUnlike({ id, likeElement, counter, likes, card }) {
+  api.removeLike({ id: id }).then(() => {
+    likeElement.classList.remove("card__like-button_active");
+    counter.textContent = likes.length;
+    card.updateLikes();
+  });
 }
 
 function openCard(name, link) {

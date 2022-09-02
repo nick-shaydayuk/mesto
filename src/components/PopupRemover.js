@@ -17,10 +17,9 @@ export default class PopupRemover extends Popup {
     super.setEventListeners();
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._element.remove();
       this.close();
       console.log(this._cardId);
-      this._deleteCardHandler({cardId: this._cardId})
+      this._deleteCardHandler({cardId: this._cardId, element: this._element, popupElement: this});
     });
   }
 }

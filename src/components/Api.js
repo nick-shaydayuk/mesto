@@ -1,10 +1,3 @@
-const onError = (res) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject("Произошла ошибка");
-};
-
 export default class Api {
   constructor({ url, headers }) {
     this._url = url;
@@ -15,14 +8,18 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUser()])
   }
 
-  async getUser() {
+  _checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject("Произошла ошибка");
+  };
+
+  async getUser() { // в задании вроде не сказано, что я должен строго по примеру запросы писать..
     const res = await fetch(`${this._url}users/me`, {
       headers: this._headers,
     });
-    if (res.ok) {
-        return res.json();
-      }
-      Promise.reject("Произошла ошибка");
+    return this._checkResponse(res);
   }
 
   async setUserInfo({name, about}) {
@@ -34,7 +31,7 @@ export default class Api {
         about,
       }),
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 
   async setUserAvatar({avatar}) {
@@ -45,14 +42,14 @@ export default class Api {
         avatar,
       }),
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 
   async getInitialCards() {
     const res = await fetch(`${this._url}cards`, {
       headers: this._headers,
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 
   async createCard({name, link}) {
@@ -64,7 +61,7 @@ export default class Api {
         link: link,
       }),
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 
   async deleteCard({id}) {
@@ -72,7 +69,7 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 
   async addLike({id}) {
@@ -80,7 +77,7 @@ export default class Api {
       method: "PUT",
       headers: this._headers,
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
   
   async removeLike({id}) {
@@ -88,6 +85,6 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     });
-    return onError(res);
+    return this._checkResponse(res);
   }
 }
