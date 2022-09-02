@@ -77,16 +77,18 @@ const cardList = new Section(
 
 const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
-  submitHandler: ({ name, about }) => {
+  submitHandler: ({ name, about }, buttonElement) => {
+    buttonElement.textContent = 'Сохранение...'
     api.setUserInfo({ name, about }).then(() => {
       userData.setUserInfo({ name, about });
+      buttonElement.textContent = 'Сохранить'
     });
   },
 });
 
 const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
-  submitHandler: (data, buttonElement) => {
+  submitHandler: ({data, buttonElement}) => {
     buttonElement.textContent = 'Создание...'
     let userId = userData.getUserId();
     cardList.appendCard(
@@ -114,9 +116,11 @@ const popupAddPost = new PopupWithForm({
 
 const popupEditAvatar = new PopupWithForm({
   popupSelector: popupEditAvatarSelector,
-  submitHandler: ({ avatar }) => {
-    api.setUserAvatar({ avatar }).then(() => {
-      userData.setAvatar({ avatar });
+  submitHandler: (avatar, buttonElement) => {
+    buttonElement.textContent = 'Сохранение...'
+    api.setUserAvatar(avatar).then(() => {
+      userData.setAvatar(avatar);
+      buttonElement.textContent = 'Сохранить'
     });
   },
 });
