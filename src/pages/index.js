@@ -86,11 +86,11 @@ const popupProfile = new PopupWithForm({
 
 const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
-  submitHandler: (data) => {
+  submitHandler: (data, buttonElement) => {
+    buttonElement.textContent = 'Создание...'
     let userId = userData.getUserId();
-
-    api
-      .createCard({
+    cardList.appendCard(
+      createCard({
         name: data.name,
         link: data.link,
         likes: data.likes,
@@ -98,19 +98,17 @@ const popupAddPost = new PopupWithForm({
         userId: userId,
         ownerId: userId,
       })
-      .then(() => {
-        cardList.appendCard(
-          createCard({
-            name: data.name,
-            link: data.link,
-            likes: data.likes,
-            _id: data._id,
-            userId: userId,
-            ownerId: userId,
-          })
-        );
-      });
+    );
+    api.createCard({
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      _id: data._id,
+      userId: userId,
+      ownerId: userId,
+    });
     popupFormAdd.reset();
+    buttonElement.textContent = 'Создать'
   },
 });
 
