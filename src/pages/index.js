@@ -64,14 +64,18 @@ const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
   submitHandler: ({ name, about }, buttonElement, popupElement) => {
     buttonElement.textContent = "Сохранение...";
-    api.setUserInfo({ name, about }).then(() => {
-      userData.setUserInfo({ name, about });
-    }).finally(() => {
-      buttonElement.textContent = "Сохранить";
-    }).catch(() => {
-      alert('ohhh shiiiiit')
-    });
-    popupElement.close();
+    api
+      .setUserInfo({ name, about })
+      .then(() => {
+        userData.setUserInfo({ name, about });
+        popupElement.close();
+      })
+      .finally(() => {
+        buttonElement.textContent = "Сохранить";
+      })
+      .catch(() => {
+        alert("ohhh shiiiiit");
+      });
   },
 });
 
@@ -79,21 +83,22 @@ const popupAddPost = new PopupWithForm({
   popupSelector: popupAddPostSelector,
   submitHandler: (data, buttonElement, popupElement) => {
     buttonElement.textContent = "Создание...";
-    api.createCard({
-      name: data.name,
-      link: data.link
-    }).then((res) => {
-      cardList.prependCard(
-        createCard(res)
-      );
-    }).finally(() => {
-      buttonElement.textContent = "Сохранить";
-    }).catch(() => {
-      alert('ohhh shiiiiit')
-    });
-    popupElement.close();
+    api
+      .createCard({
+        name: data.name,
+        link: data.link,
+      })
+      .then((res) => {
+        cardList.prependCard(createCard(res));
+        popupElement.close();
+      })
+      .finally(() => {
+        buttonElement.textContent = "Сохранить";
+      })
+      .catch(() => {
+        alert("ohhh shiiiiit");
+      });
     popupFormAdd.reset();
-    buttonElement.textContent = "Создать";
   },
 });
 
@@ -101,15 +106,18 @@ const popupEditAvatar = new PopupWithForm({
   popupSelector: popupEditAvatarSelector,
   submitHandler: (avatar, buttonElement, popupElement) => {
     buttonElement.textContent = "Сохранение...";
-    api.setUserAvatar(avatar).then(() => {
-      userData.setAvatar(avatar);
-      buttonElement.textContent = "Сохранить";
-    }).finally(() => {
-      buttonElement.textContent = "Сохранить";
-    }).catch(() => {
-      alert('ohhh shiiiiit')
-    });
-    popupElement.close();
+    api
+      .setUserAvatar(avatar)
+      .then(() => {
+        userData.setAvatar(avatar);
+        popupElement.close();
+      })
+      .finally(() => {
+        buttonElement.textContent = "Сохранить";
+      })
+      .catch(() => {
+        alert("ohhh shiiiiit");
+      });
   },
 });
 
@@ -118,12 +126,15 @@ const popupCard = new PopupWithImage(".popup-card");
 const popupRemover = new PopupRemover({
   popupSelector: ".popup-remover",
   deleteCardHandler: ({ cardId, element, popupElement }) => {
-    api.deleteCard({ id: cardId }).then(() => {
-      element.remove();
-      popupElement.close();
-    }).catch(() => {
-      alert('ohhh shiiiiit')
-    });
+    api
+      .deleteCard({ id: cardId })
+      .then(() => {
+        element.remove();
+        popupElement.close();
+      })
+      .catch(() => {
+        alert("ohhh shiiiiit");
+      });
   },
 });
 
@@ -140,17 +151,27 @@ function createCard({ name, link, likes, _id, userId, ownerId }) {
 }
 
 function handleCardLike({ id, likeElement, counter }) {
-  api.addLike({ id: id }).then((res) => {
-    likeElement.classList.add("card__like-button_active");
-    counter.textContent = res.likes.length;    
-  });
+  api
+    .addLike({ id: id })
+    .then((res) => {
+      likeElement.classList.add("card__like-button_active");
+      counter.textContent = res.likes.length;
+    })
+    .catch(() => {
+      alert("ohhh shiiiiit");
+    });
 }
 
 function handleCardUnlike({ id, likeElement, counter }) {
-  api.removeLike({ id: id }).then((res) => {
-    likeElement.classList.remove("card__like-button_active");
-    counter.textContent = res.likes.length;
-  });
+  api
+    .removeLike({ id: id })
+    .then((res) => {
+      likeElement.classList.remove("card__like-button_active");
+      counter.textContent = res.likes.length;
+    })
+    .catch(() => {
+      alert("ohhh shiiiiit");
+    });
 }
 
 function openCard(name, link) {
@@ -162,14 +183,9 @@ function openPopupRemove({ element: element, cardId: cardId }) {
 }
 
 profileEditButton.addEventListener("click", function () {
-  api.getUser().then((userData) => {
-    popupProfile.setInputValues({
-      name: userData.name,
-      about: userData.about,
-    });
-    profileEditValidator.resetFormValidator();
-    popupProfile.open();
-  });
+  popupProfile.setInputValues(userData.getUserInfo());
+  profileEditValidator.resetFormValidator();
+  popupProfile.open();
 });
 
 popupAddPostOpenBtn.addEventListener("click", function () {
@@ -215,4 +231,6 @@ api
       );
     });
   })
-  .catch((err) => console.log(err));
+  .catch(() => {
+    alert("ohhh shiiiiit");
+  });
