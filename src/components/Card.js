@@ -11,9 +11,9 @@ export default class Card {
     this._link = link;
     this._likes = likes;
     this._cardId = _id;
-    this._ownerId = ownerId;
-    this._userProperty = userId === ownerId;
     this._userId = userId;
+    this._ownerId = ownerId;
+    this._userProperty = userId === ownerId; 
 
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
@@ -38,20 +38,17 @@ export default class Card {
     this._cardClose = this._element.querySelector(".card__close-button");
     this._counter = this._element.querySelector('.card__like-counter');
     this._setEventListeners();
+    this._checkLike()
     this._counter.textContent = this._likes.length;
     return this._element;
   }
 
-  updateLikes() {
-    if (!this._likes === undefined) {
-      if(this._likes.length > 0) {
-        this._counter.textContent = this._likes.length;
-      } else {
-        this._counter.textContent = 0;
+  _checkLike() {
+    this._likes.forEach((like) => {
+      if (like._id === this._userId) {
+        this._handleCardLike({id: this._cardId, likeElement: this._cardLike, counter: this._counter})
       }
-    } else {
-      this._counter.textContent = 0;
-    }
+    })
   }
 
   _setEventListeners() {

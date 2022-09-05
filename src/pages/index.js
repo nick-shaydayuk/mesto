@@ -232,5 +232,5 @@ api
     });
   })
   .catch(() => {
-    alert("ohhh shiiiiit");
+    alert("ohhh");
   });
